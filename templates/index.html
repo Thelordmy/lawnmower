@@ -1,1 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EchoForge Controller</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>EchoForge Controller</h1>
 
+    <div class="controls">
+        <div class="row">
+            <button onclick="send('forward')">Forward</button>
+        </div>
+        <div class="row">
+            <button onclick="send('left')">Left</button>
+            <button class="stop" onclick="send('stop')">Stop</button>
+            <button onclick="send('right')">Right</button>
+        </div>
+        <div class="row">
+            <button onclick="send('backward')">Back</button>
+        </div>
+        <div class="row">
+            <button class="spray" onclick="send('spray')">Spray</button>
+            <button class="mower" onclick="send('mower_off')">Mower Off</button>
+        </div>
+    </div>
+
+    <p id="status">Status: idle</p>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
