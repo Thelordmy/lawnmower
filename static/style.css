@@ -1,57 +1,252 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f5f5f3;
+  --surface: #ffffff;
+  --border: #e0e0dc;
+  --text: #1a1a1a;
+  --muted: #9a9a96;
+  --accent: #1a1a1a;
+}
+
 body {
-    font-family: Arial;
-    text-align: center;
-    background: #111;
-    color: white;
-    padding: 20px;
-    margin: 0;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  z-index: 10;
 }
 
-.controls {
-    display: inline-block;
+.logo {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
-.row {
-    display: flex;
-    justify-content: center;
-    margin: 6px 0;
+.status-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 4px 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
 }
 
-button {
-    width: 120px;
-    height: 60px;
-    margin: 6px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    background: #28a745;
-    color: white;
-    letter-spacing: 1px;
+.status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #22c55e;
 }
 
-button.spray { background: #007bff; }
-button.stop { background: #dc3545; }
-button.mower { background: #ff8c00; }
-
-button:active {
-    opacity: 0.8;
-    transform: scale(0.97);
+.gamepad {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 780px;
+  padding: 0 32px;
+  padding-top: 40px;
+  height: 100%;
 }
 
-@media (orientation: landscape) and (max-width: 900px) {
-    h1 { font-size: 18px; margin-bottom: 10px; }
+.left-side, .right-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
 
-    button {
-        width: 100px;
-        height: 48px;
-        font-size: 14px;
-        margin: 4px;
-    }
+.side-label {
+  font-size: 9px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* D-PAD */
+.dpad {
+  display: grid;
+  grid-template-columns: 64px 64px 64px;
+  grid-template-rows: 64px 64px 64px;
+  gap: 6px;
+}
+
+.dpad-btn {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  transition: background 0.08s, transform 0.08s, border-color 0.08s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+}
+
+.dpad-btn:active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+  transform: scale(0.91);
+  box-shadow: none;
+}
+
+.dpad-btn.stop-btn {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.dpad-btn.stop-btn:active {
+  background: #b91c1c;
+  border-color: #b91c1c;
+  transform: scale(0.91);
+}
+
+.dpad-btn:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.dpad-empty {
+  border: none;
+  box-shadow: none;
+  pointer-events: none;
+  background: transparent;
+}
+
+.arrow { width: 22px; height: 22px; }
+
+/* CENTER */
+.center-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.4;
+  height: 200px;
+}
+
+.center-line {
+  width: 1px;
+  height: 100%;
+  background: var(--border);
+}
+
+/* ACTION GRID */
+.action-grid {
+  display: grid;
+  grid-template-columns: 96px 96px;
+  grid-template-rows: 96px 96px;
+  gap: 10px;
+}
+
+.action-btn {
+  border: 1.5px solid var(--border);
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: transform 0.1s, opacity 0.1s, border-color 0.15s, background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  background: var(--surface);
+}
+
+.action-btn:active {
+  transform: scale(0.91);
+  box-shadow: none;
+}
+
+/* Individual button colors */
+.action-btn.spray { background: #f0f7ff; border-color: #bfdbfe; }
+.action-btn.mower { background: #fff7ed; border-color: #fed7aa; }
+.action-btn.auto  { background: #f0fdf4; border-color: #bbf7d0; }
+.action-btn.override { background: #fff1f2; border-color: #fecdd3; }
+
+/* Active/on state */
+.action-btn.spray.active   { background: #3b82f6; border-color: #3b82f6; }
+.action-btn.mower.active   { background: #f97316; border-color: #f97316; }
+.action-btn.auto.active    { background: #22c55e; border-color: #22c55e; }
+.action-btn.override.active { background: #ef4444; border-color: #ef4444; }
+
+.action-btn.active .action-icon,
+.action-btn.active .action-name { color: white; }
+
+.action-btn.empty-slot {
+  background: transparent;
+  border: 1.5px dashed var(--border);
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.action-icon {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.action-name {
+  font-size: 10px;
+  font-family: 'DM Mono', monospace;
+  color: var(--text);
+  letter-spacing: 0.04em;
+}
+
+/* RESPONSIVE — phone landscape */
+@media (max-width: 600px) {
+  .dpad {
+    grid-template-columns: 58px 58px 58px;
+    grid-template-rows: 58px 58px 58px;
+  }
+  .action-grid {
+    grid-template-columns: 84px 84px;
+    grid-template-rows: 84px 84px;
+  }
+  .gamepad {
+    padding: 0 16px;
+    padding-top: 40px;
+  }
 }

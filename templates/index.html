@@ -1,33 +1,76 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>EchoForge Controller</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/static/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>EchoForge Controller</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <h1>EchoForge Controller</h1>
+  <div class="topbar">
+    <span class="logo">EchoForge</span>
+    <div class="status-pill">
+      <div class="status-dot"></div>
+      <span id="status-text">idle</span>
+    </div>
+  </div>
 
-    <div class="controls">
-        <div class="row">
-            <button onclick="send('forward')">Forward</button>
-        </div>
-        <div class="row">
-            <button onclick="send('left')">Left</button>
-            <button class="stop" onclick="send('stop')">Stop</button>
-            <button onclick="send('right')">Right</button>
-        </div>
-        <div class="row">
-            <button onclick="send('backward')">Back</button>
-        </div>
-        <div class="row">
-            <button class="spray" onclick="send('spray')">Spray</button>
-            <button class="mower" onclick="send('mower_off')">Mower Off</button>
-        </div>
+  <div class="gamepad">
+
+    <div class="left-side">
+      <div class="side-label">Move</div>
+      <div class="dpad">
+        <div class="dpad-empty"></div>
+        <button class="dpad-btn" onpointerdown="send('forward')" onpointerup="send('stop')" onpointerleave="send('stop')">
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+        </button>
+        <div class="dpad-empty"></div>
+
+        <button class="dpad-btn" onpointerdown="send('left')" onpointerup="send('stop')" onpointerleave="send('stop')">
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="dpad-btn stop-btn" onpointerdown="send('stop')">STOP</button>
+        <button class="dpad-btn" onpointerdown="send('right')" onpointerup="send('stop')" onpointerleave="send('stop')">
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+
+        <div class="dpad-empty"></div>
+        <button class="dpad-btn" onpointerdown="send('backward')" onpointerup="send('stop')" onpointerleave="send('stop')">
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="dpad-empty"></div>
+      </div>
     </div>
 
-    <p id="status">Status: idle</p>
+    <div class="center-info">
+      <div class="center-line"></div>
+    </div>
 
-    <script src="/static/script.js"></script>
+    <div class="right-side">
+      <div class="side-label">Actions</div>
+      <div class="action-grid">
+        <button class="action-btn spray" id="spray-btn" onclick="toggle('spray')">
+          <div class="action-icon">💧</div>
+          <div class="action-name">spray</div>
+        </button>
+        <button class="action-btn mower" id="mower-btn" onclick="toggle('mower')">
+          <div class="action-icon">⚙️</div>
+          <div class="action-name">mower</div>
+        </button>
+        <button class="action-btn auto" id="auto-btn" onclick="toggle('auto')">
+          <div class="action-icon">🤖</div>
+          <div class="action-name">auto</div>
+        </button>
+        <button class="action-btn override" id="override-btn" onclick="toggle('override')">
+          <div class="action-icon">⚠️</div>
+          <div class="action-name">override</div>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="/static/script.js"></script>
 </body>
 </html>
